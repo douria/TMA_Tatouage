@@ -72,12 +72,6 @@ public class Encode {
 			tatouFile[4*i+1] = (byte) ( (origine[4*i+1 + startFile] & 0xfc) | ((data[i]>>4) & 0x3) );
 			tatouFile[4*i+2] = (byte) ( (origine[4*i+2 + startFile] & 0xfc) | ((data[i]>>2) & 0x3) );
 			tatouFile[4*i+3] = (byte) ( (origine[4*i+3 + startFile] & 0xfc) | (data[i]& 0x3) );
-			if (i<10){
-				System.out.println(tatouFile[4*i]+" et origine: "+origine[4*i + startFile]+" et data: "+((data[i]>>6)&0x3));
-				System.out.println(tatouFile[4*i+1]+" et origine: "+origine[4*i +1+ startFile]+" et data: "+((data[i]>>4) & 0x3));
-				System.out.println(tatouFile[4*i+2]+" et origine: "+origine[4*i +2+ startFile]+" et data: "+((data[i]>>2) & 0x3));
-				System.out.println(tatouFile[4*i+3]+" et origine: "+origine[4*i +3+ startFile]+" et data: "+(data[i]&0x3));
-			}
 		}
 		return tatouFile;
 	}
