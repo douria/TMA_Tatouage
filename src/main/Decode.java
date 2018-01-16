@@ -58,6 +58,7 @@ public class Decode {
 			byte[] origineByte = origineBytePixmap.getBytes();
 			//Get the size of the Image
 			int res = readSize(origineByte);
+			System.out.println(res);
 			//Get the name of the Image
 			String name = readTitle(origineByte);
 			//byte tab of the hide image to display
