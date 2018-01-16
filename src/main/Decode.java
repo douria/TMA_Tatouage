@@ -30,10 +30,20 @@ public class Decode {
 	 * @return
 	 */
 	public static String readTitle(byte[] origine){
-		
-		byte[] tabcharTitle = new byte[14];
-		for(int i=0; i<14; i++){
+		char[] endtitle = new char[4];
+		endtitle[0] =' ';
+		endtitle[1] =' ';
+		endtitle[2] =' ';
+		endtitle[3] =' ';
+		byte[] tabcharTitle = new byte[startFile-startTitle];
+		int i = 0;
+		while((endtitle[0]!='.' && endtitle[1]!='j' && endtitle[2]!='p' && endtitle[3]!='g') || (endtitle[0]!='.' && endtitle[1]!='p' && endtitle[2]!='n' && endtitle[3]!='g')){
 			tabcharTitle[i] = (byte) (((origine[(i*4)+startTitle]&0x3)<<6) | ((origine[(i*4)+startTitle+1]&0x3)<<4) | ((origine[(i*4)+startTitle+2]&0x3)<<2) | (origine[(i*4)+startTitle+3]&0x3));
+			endtitle[0]= endtitle[1];
+			endtitle[1]= endtitle[2];
+			endtitle[2]= endtitle[3];
+			endtitle[3]= (char)tabcharTitle[i];
+			i++;
 		}
 		String title = new String(tabcharTitle);
 		return title;
