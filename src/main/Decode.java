@@ -2,6 +2,9 @@ package main;
 
 import java.awt.Frame;
 import java.awt.Image;
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
@@ -64,6 +67,7 @@ public class Decode {
 		// TODO Auto-generated method stub
 		try {
 			// Generate a BytePixmap of the image and a tab of byte
+			System.out.println(args[0]);
 			BytePixmap origineBytePixmap = new BytePixmap(args[0]);
 			byte[] origineByte = origineBytePixmap.getBytes();
 			//Get the size of the Image
@@ -81,6 +85,23 @@ public class Decode {
 			f.add(dI);
 			f.pack();
 			f.setVisible(true);
+			// create the file Image 
+            File imageFich = new File("src/main/"+name);
+			//si l'image n'exsite pas on la cree 
+
+    	    if (!imageFich.exists()) {
+		    	imageFich.createNewFile();
+			}
+			FileOutputStream fos = new FileOutputStream(imageFich);
+	
+			try {
+			    fos.write(resultByte);
+			    fos.flush();
+			    System.out.println("dans le write pour l'image");
+			}
+			finally {
+			    fos.close();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
