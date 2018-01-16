@@ -48,7 +48,11 @@ public class Decode {
 			endtitle[3]= (char)tabcharTitle[i];
 			i++;
 		}
-		String title = new String(tabcharTitle);
+		byte[] btitle = new byte[i];
+		for(int j=0; j<i; j++){
+			btitle[j] = tabcharTitle[j];
+		}
+		String title = new String(btitle);
 		return title;
 	}
 	
@@ -58,6 +62,28 @@ public class Decode {
 			tabcharTitle[i] = (byte) (((origine[(i*4)+startFile]&0x3)<<6) | ((origine[(i*4)+startFile+1]&0x3)<<4) | ((origine[(i*4)+startFile+2]&0x3)<<2) | (origine[(i*4)+startFile+3]&0x3));
 		}
 		return tabcharTitle;
+	}
+	
+	public static void saveImage(String name, byte[] resultByte){
+		
+		try {
+			// create the file Image 
+			File imageFich = new File(name);
+			//si l'image n'exsite pas on la cree 
+			
+			if (!imageFich.exists()) {
+				imageFich.createNewFile();
+			}
+			FileOutputStream fos = new FileOutputStream(imageFich);
+			fos.write(resultByte);
+			fos.flush();
+			System.out.println("dans le write pour l'image");
+			fos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
 	}
 
 	/**
@@ -85,23 +111,10 @@ public class Decode {
 			f.add(dI);
 			f.pack();
 			f.setVisible(true);
-			// create the file Image 
-            File imageFich = new File("src/main/"+name);
-			//si l'image n'exsite pas on la cree 
+			
+			saveImage(name,resultByte);
 
-    	    if (!imageFich.exists()) {
-		    	imageFich.createNewFile();
-			}
-			FileOutputStream fos = new FileOutputStream(imageFich);
-	
-			try {
-			    fos.write(resultByte);
-			    fos.flush();
-			    System.out.println("dans le write pour l'image");
-			}
-			finally {
-			    fos.close();
-			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
